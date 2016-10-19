@@ -11,11 +11,11 @@ app.use(express.static(__dirname + '/public'));
 
 // set the home page route
 app.get('/', function (req, res) {
-    console.log(req);
+    console.log(req.body);
     res.send('Hello World!');
 });
 app.post('/', function (req, res) {
-    console.log(req);
+    console.log(req.body);
     res.send('OK');
 });
 app.get('/verify', function (req, res) {
