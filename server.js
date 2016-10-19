@@ -42,7 +42,7 @@ app.post('/', function (req, res) {
                         }]
                 })
             }, function (error, response, body) {
-                console.log(error);
+               if(error) console.log(error);
                 res.send('OK');
             //res.send(body);
             });
