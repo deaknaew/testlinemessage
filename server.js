@@ -15,7 +15,7 @@ app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 app.post('/', function (req, res) {
-    console.dir(req.body);
+    console.dir(req);
     res.send('OK');
 });
 app.get('/verify', function (req, res) {
