@@ -11,7 +11,7 @@ app.use(express.static(__dirname + '/public'));
 
 // set the home page route
 app.get('/', function (req, res) {
-    
+    console.log(req);
     res.send('Hello World!');
 });
 app.post('/', function (req, res) {
