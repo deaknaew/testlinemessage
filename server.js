@@ -1,6 +1,6 @@
 ﻿var express = require('express');
 var app = express();
-
+var request = require('request');
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
 var port = process.env.PORT || 8080;
@@ -13,6 +13,11 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', function (req, res) {
     
     res.send('Hello World!');
+});
+
+app.get('/verify', function (req, res) {
+    
+    res.send('verify');
 });
 
 app.listen(port, function () {
