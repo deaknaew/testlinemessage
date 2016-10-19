@@ -23,7 +23,6 @@ app.get('/verify', function (req, res) {
     request({
         url: "https://api.line.me/v1/oauth/verify",
         method: "GET",
-        json: true,   // <--Very important!!!
         header: myJSONObject
     }, function (error, response, body) {
         console.log(response);
