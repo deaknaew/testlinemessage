@@ -14,7 +14,10 @@ app.get('/', function (req, res) {
     
     res.send('Hello World!');
 });
-
+app.post('/', function (req, res) {
+    console.log(req);
+    res.send('OK');
+});
 app.get('/verify', function (req, res) {
     var access_token='y1opwsAwfAcHSwaQ7ZNfWUzm7G/sOBaqfS8tQq5ncEEKz8LhQa/n9fK3DbiEgihOhZ8Dn2ZXksYWYNAGqUZrrhe+u1nBGLJasfnnRiYzKVj02QHuayDVw4uPYJoiMlmsaWBdfmuLtRZhi7ISER/DPgdB04t89/1O/w1cDnyilFU='
     var myJSONObject = {
