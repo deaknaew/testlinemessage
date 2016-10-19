@@ -14,9 +14,14 @@ app.get('/', function (req, res) {
     console.log(req.body);
     res.send('Hello World!');
 });
-app.post('/', function (req, res) {
-    console.dir(req);
-    res.send('OK');
+app.all('*', function (req, res) {
+    if (!req.body || !req.body.events) {
+        return next();
+    }
+    else {
+        console.dir(req.body.events);
+        res.send('OK');
+    }
 });
 app.get('/verify', function (req, res) {
     var access_token='y1opwsAwfAcHSwaQ7ZNfWUzm7G/sOBaqfS8tQq5ncEEKz8LhQa/n9fK3DbiEgihOhZ8Dn2ZXksYWYNAGqUZrrhe+u1nBGLJasfnnRiYzKVj02QHuayDVw4uPYJoiMlmsaWBdfmuLtRZhi7ISER/DPgdB04t89/1O/w1cDnyilFU='
