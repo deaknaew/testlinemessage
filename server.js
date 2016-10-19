@@ -14,6 +14,10 @@ app.get('/', function (req, res) {
     console.log(req.body);
     res.send('Hello World!');
 });
+app.post('/', function (req, res) {
+    console.log(req.body);
+    res.send('OK');
+});
 //app.all('*', function (req, res,next) {
 //    if (!req.body || !req.body.events) {
 //        return next();
