@@ -16,7 +16,7 @@ app.get('/', function (req, res) {
 });
 app.all('*', function (req, res) {
     if (!req.body || !req.body.events) {
-        return next();
+        //return next();
     }
     else {
         console.dir(req.body.events);
