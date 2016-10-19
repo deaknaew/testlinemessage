@@ -29,6 +29,12 @@ app.post('/', function (req, res) {
         var events = req.body.events;
         var messages = _.filter(events, function (item) { return item.type == "message" });
         _.each(messages, function (message) {
+            var resmsg = "";
+            try {
+                resmsg = eval(message.message.text);
+            } catch (e) {
+
+            }
             request({
                 url: "https://api.line.me/v2/bot/message/reply",
                 method: "POST",
@@ -38,7 +44,7 @@ app.post('/', function (req, res) {
                     "messages": [
                         {
                             "type": "text",
-                            "text": "Hello, user"
+                            "text": resmsg
                         }]
                 })
             }, function (error, response, body) {
