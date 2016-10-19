@@ -21,11 +21,11 @@ app.get('/verify', function (req, res) {
         Authorization:'Bearer '+ access_token
     };
     request({
-        url: "https://api.line.me/v1/oauth/verify",
+        url: "	https://api.line.me/v1/profile",
         method: "GET",
         headers: myJSONObject
     }, function (error, response, body) {
-        console.log(response);
+        //console.log(response);
         res.send(body);
     });
 });
