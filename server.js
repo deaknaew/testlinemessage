@@ -1,12 +1,16 @@
 ﻿var express = require('express');
 var app = express();
+var _ = require ('underscore');
 var request = require('request');
 var bodyParser = require("body-parser");
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
 var port = process.env.PORT || 8080;
-
-
+var access_token = 'y1opwsAwfAcHSwaQ7ZNfWUzm7G/sOBaqfS8tQq5ncEEKz8LhQa/n9fK3DbiEgihOhZ8Dn2ZXksYWYNAGqUZrrhe+u1nBGLJasfnnRiYzKVj02QHuayDVw4uPYJoiMlmsaWBdfmuLtRZhi7ISER/DPgdB04t89/1O/w1cDnyilFU='
+var AuthorizationHeader = {
+    "Content-Type":	'application/json',
+    Authorization: 'Bearer ' + access_token
+};
 // make express look in the public directory for assets (css/js/img)
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({
@@ -20,7 +24,31 @@ app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 app.post('/', function (req, res) {
-    console.log(req.body);
+    //console.log(req.body);
+    if (req.body.events) {
+        var events = req.body.events;
+        var messages = _.filter(events, function (item) { return item.type == "message" });
+        _.each(messages, function (message) {
+            request({
+                url: "https://api.line.me/v2/bot/message/reply",
+                method: "POST",
+                headers: AuthorizationHeader,
+                body: JSON.stringify({
+                    "replyToken": message.replyToken,
+                    "messages": [
+                        {
+                            "type": "text",
+                            "text": "Hello, user"
+                        }]
+                })
+            }, function (error, response, body) {
+                console.log(error);
+                res.send('OK');
+            //res.send(body);
+            });
+        });
+        
+    }else
     res.send('OK');
 });
 //app.all('*', function (req, res,next) {
@@ -33,14 +61,12 @@ app.post('/', function (req, res) {
 //    }
 //});
 app.get('/verify', function (req, res) {
-    var access_token='y1opwsAwfAcHSwaQ7ZNfWUzm7G/sOBaqfS8tQq5ncEEKz8LhQa/n9fK3DbiEgihOhZ8Dn2ZXksYWYNAGqUZrrhe+u1nBGLJasfnnRiYzKVj02QHuayDVw4uPYJoiMlmsaWBdfmuLtRZhi7ISER/DPgdB04t89/1O/w1cDnyilFU='
-    var myJSONObject = {
-        Authorization:'Bearer '+ access_token
-    };
+    
+
     request({
         url: "	https://api.line.me/v1/profile",
         method: "GET",
-        headers: myJSONObject
+        headers: AuthorizationHeader
     }, function (error, response, body) {
         //console.log(response);
         res.send(body);
