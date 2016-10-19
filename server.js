@@ -14,15 +14,15 @@ app.get('/', function (req, res) {
     console.log(req.body);
     res.send('Hello World!');
 });
-app.all('*', function (req, res,next) {
-    if (!req.body || !req.body.events) {
-        return next();
-    }
-    else if(req.body.events){
-        console.dir(req.body.events);
-        res.send('OK');
-    }
-});
+//app.all('*', function (req, res,next) {
+//    if (!req.body || !req.body.events) {
+//        return next();
+//    }
+//    else if(req.body.events){
+//        console.dir(req.body.events);
+//        res.send('OK');
+//    }
+//});
 app.get('/verify', function (req, res) {
     var access_token='y1opwsAwfAcHSwaQ7ZNfWUzm7G/sOBaqfS8tQq5ncEEKz8LhQa/n9fK3DbiEgihOhZ8Dn2ZXksYWYNAGqUZrrhe+u1nBGLJasfnnRiYzKVj02QHuayDVw4uPYJoiMlmsaWBdfmuLtRZhi7ISER/DPgdB04t89/1O/w1cDnyilFU='
     var myJSONObject = {
