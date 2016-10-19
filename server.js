@@ -16,8 +16,19 @@ app.get('/', function (req, res) {
 });
 
 app.get('/verify', function (req, res) {
-    
-    res.send('verify');
+    var access_token='y1opwsAwfAcHSwaQ7ZNfWUzm7G/sOBaqfS8tQq5ncEEKz8LhQa/n9fK3DbiEgihOhZ8Dn2ZXksYWYNAGqUZrrhe+u1nBGLJasfnnRiYzKVj02QHuayDVw4uPYJoiMlmsaWBdfmuLtRZhi7ISER/DPgdB04t89/1O/w1cDnyilFU='
+    var myJSONObject = {
+        Authorization:'Bearer '+ access_token
+    };
+    request({
+        url: "https://api.line.me/v1/oauth/verify",
+        method: "POST",
+        json: true,   // <--Very important!!!
+        header: myJSONObject
+    }, function (error, response, body) {
+        console.log(response);
+        res.send(body);
+    });
 });
 
 app.listen(port, function () {
