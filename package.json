@@ -1,0 +1,10 @@
+{
+  "name": "testlinemessage",
+  "version": "0.0.0",
+  "description": "testlinemessage",
+  "main": "server.js",
+  "author": {
+    "name": "Palm",
+    "email": ""
+  }
+}
