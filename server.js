@@ -14,11 +14,11 @@ app.get('/', function (req, res) {
     console.log(req.body);
     res.send('Hello World!');
 });
-app.all('*', function (req, res) {
+app.all('*', function (req, res,next) {
     if (!req.body || !req.body.events) {
-        //return next();
+        return next();
     }
-    else {
+    else if(req.body.events){
         console.dir(req.body.events);
         res.send('OK');
     }
