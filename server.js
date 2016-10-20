@@ -6,7 +6,7 @@ var bodyParser = require("body-parser");
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
 var port = process.env.PORT || 8080;
-var access_token = 'y1opwsAwfAcHSwaQ7ZNfWUzm7G/sOBaqfS8tQq5ncEEKz8LhQa/n9fK3DbiEgihOhZ8Dn2ZXksYWYNAGqUZrrhe+u1nBGLJasfnnRiYzKVj02QHuayDVw4uPYJoiMlmsaWBdfmuLtRZhi7ISER/DPgdB04t89/1O/w1cDnyilFU='
+var access_token = 'y1opwsAwfAcHSwaQ7ZNfWUzm7G/sOBaqfS8tQq5ncEEKz8LhQa/n9fK3DbiEgihOhZ8Dn2ZXksYWYNAGqUZrrhe+u1nBGLJasfnnRiYzKVj02QHuayDVw4uPYJoiMlmsaWBdfmuLtRZhi7ISER/DPgdB04t89/1O/w1cDnyilFU=';
 var AuthorizationHeader = {
     "Content-Type":	'application/json',
     Authorization: 'Bearer ' + access_token
@@ -57,15 +57,44 @@ app.post('/', function (req, res) {
     }else
     res.send('OK');
 });
-//app.all('*', function (req, res,next) {
-//    if (!req.body || !req.body.events) {
-//        return next();
-//    }
-//    else if(req.body.events){
-//        console.dir(req.body.events);
-//        res.send('OK');
-//    }
-//});
+app.post('/bot2', function (req, res) {
+    var access_token2 = 'ONutxLHqrBjjvrk6ZWFM2mRNM/yyloJzD1Da8Uk35LXW/IaNA+tZ+rBjHe1JhOG9SpOWe8nawl4i7cYqC12H+pk2rL5rFKimrcJpV+Mjcux5FYr4X1BD4s4wbRL6PEW8l3pHSrdJKgg9VCR80zwLHAdB04t89/1O/w1cDnyilFU=';
+    var AuthorizationHeader2 = {
+        "Content-Type": 'application/json',
+        Authorization: 'Bearer ' + access_token2
+    };
+    if (req.body.events) {
+        var events = req.body.events;
+        var messages = _.filter(events, function (item) { return item.type == "message" });
+        _.each(messages, function (message) {
+            var resmsg = "";
+            try {
+                resmsg = eval(message.message.text);
+            } catch (e) {
+
+            }
+            request({
+                url: "https://api.line.me/v2/bot/message/reply",
+                method: "POST",
+                headers: AuthorizationHeader2,
+                body: JSON.stringify({
+                    "replyToken": message.replyToken,
+                    "messages": [
+                        {
+                            "type": "text",
+                            "text": resmsg
+                        }]
+                })
+            }, function (error, response, body) {
+                if (error) console.log(error);
+                res.send('OK');
+            //res.send(body);
+            });
+        });
+        
+    } else
+        res.send('OK');
+});
 app.get('/verify', function (req, res) {
     
 
